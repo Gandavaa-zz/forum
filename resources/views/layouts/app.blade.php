@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'dfsafds') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -24,7 +24,7 @@
         <nav class="navbar has-shadow">
             <div class="container">
                 <div class="navbar-brand">
-                    <a href="{{ url('/') }}" class="navbar-item">{{ config('app.name', 'Laravel') }}</a>
+                    <a href="{{ url('/') }}" class="navbar-item">{{ config('app.name', 'fsdafsd') }}</a>
 
                     <div class="navbar-burger burger" data-target="navMenu">
                         <span></span>
@@ -34,8 +34,12 @@
                 </div>
 
                 <div class="navbar-menu" id="navMenu">
-                    <div class="navbar-start"></div>
-
+                    <div class="navbar-start">
+                        <a class="navbar-item" href="/threads">
+                            Бүх асуулт
+                          </a>
+                    </div>
+                    
                     <div class="navbar-end">
                         @if (Auth::guest())
                             <a class="navbar-item " href="{{ route('login') }}">Login</a>
@@ -62,10 +66,7 @@
             </div>
         </nav>
 
-
-            @yield('content')
-
-
+        @yield('content')
 
     </div>
 

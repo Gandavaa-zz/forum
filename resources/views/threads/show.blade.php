@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('content')
     
 <section class="hero is-fullheight">
@@ -19,18 +20,40 @@
                 </div>
           </div>   
           
-          <div class="columns">                
+        <div class="columns">                
             <div class="column is-offset-2 is-8">
                 @foreach ($thread->replies as $reply)
-                    
-                    <div class="box">
-                        <a href="">{{$reply->owner->name}} </a> хэлжээ {{ $reply->created_at->diffForHumans() }} ...
-                        <hr>
-                        {{ $reply->body }}                        
-                    </div>                    
+                    @include('threads.reply')                     
                 @endforeach
               </div>
-        </div>   
+        </div> 
+        
+        @if(auth()->check())
+        <div class="columns">                
+            <div class="column is-offset-2 is-8">
+                <form method="POST" action="{{ $thread->path() . '/replies' }}">
+                     @csrf 
+                    <div class="field">
+                        <div class="control">
+                            <h2 class="title is-6">Коммент:</h2>
+                        </div>
+                    </div>
+                    <div class="field">                  
+                        <div class="control">
+                          <textarea name="body" class="textarea is-primary" placeholder="Хэлэх үгээ бичнэ үү?"></textarea>
+                        </div>
+                        
+                    </div>                
+                    <div class="field">
+                        <button type="submit" class="button is-primary">Нийтлэх</button>
+                    </div>
+                </form>
+              </div>
+        </div>
+        @else
+            <p class="has-text-centered">Та <a href="{{ route('login') }}">нэвтэрч</a> дараа энэхүү ярилцлагад оролцох боломжтой.</p>
+        @endif
+
       </div>
   </section>
   
