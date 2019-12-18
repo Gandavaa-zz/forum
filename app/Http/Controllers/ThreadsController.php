@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Forum\Http\Controllers;
 
-use App\Thread;
+use Forum\Thread;
+use Forum\Channel;
 use Illuminate\Http\Request;
 
 class ThreadsController extends Controller
@@ -11,9 +12,23 @@ class ThreadsController extends Controller
     {
         $this->middleware('auth')->except(['index', 'show']); // zuvhun store uildeld auth shaardana
     }
-    public function index()
+    public function index(Channel $channel)
     {
-        $threads =Thread::latest()->get();
+        if($channel->exist){
+            $threads = $channel->threads()->latest()->get();            
+        }else{
+            $threads =Thread::latest();
+        }
+
+        // if request('by) we should filter by the givenname
+
+        if($username = request('by')){
+            $user = \Forum\User::where('name', $username)->firstOrFail();
+            $threads->where('user_id', $user->id);
+        }
+        
+        $threads = $threads->get();
+
         return view('threads.index', compact('threads'));
     }
 
@@ -35,6 +50,7 @@ class ThreadsController extends Controller
      */
     public function store(Request $request)
     {
+        // dd(request()->all());
         $this->validate($request, [
             'title' => 'required',
             'body' => 'required',
@@ -42,7 +58,7 @@ class ThreadsController extends Controller
         ]);
 
         $thread = Thread::create([
-            'user_id' => auth()->id, 
+            'user_id' => auth()->id(), 
             'channel_id' => request('channel_id'), 
             'title' => request('title'),
             'body' => request('body')

@@ -12,20 +12,53 @@
                       <hr>
                         <div class="thread-body">
                             <div class="field">       
+                                <h1 class="title is-5">Сувгаас сонгоно уу...</h1>    
+                                <div class="control">
+                                    <div class="select is-fullwidth">
+                                        <select name="channel_id" id="channel_id" required>
+                                            <option value="">Choose one....</option>
+                                            @foreach ($channels as $channel)
+                                                <option value="{{$channel->id}}" {{ old('channel_id') == $channel->id ? 'selected' : '' }}>
+                                                    {{ $channel->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>  
+                            <div class="field">       
                                 <h1 class="title is-5">Гарчиг</h1>    
                                 <div class="control">
-                                <input type="text" class="input" name="title" value="{{ old('title')}}">
+                                   <input type="text" class="input" name="title" value="{{ old('title')}}" required>
                                 </div>
                             </div>  
                             <div class="field">       
                                 <h1 class="title is-5">Гол хэсэг:</h1>              
                                 <div class="control">
-                                    <textarea name="body" id="body" class="textarea" rows="8">{{ old('body') }} 
+                                    <textarea name="body" id="body" class="textarea" rows="8" required>{{ old('body') }} 
                                     </textarea>
                                 </div>
                             </div>  
-                            <button type="submit" class="button is-primary">Хадгалах</button>
+                            <div class="field">
+                                <button type="submit" class="button is-primary">Хадгалах</button>
+                            </div>
+
+                            @if(count($errors))
+                                <article class="message is-danger">
+                                    <div class="message-body">
+                                        <ul>
+                                        @foreach ($errors->all() as $error)
+                                        
+                                        <li> {{ $error }} </li>
+
+                                        @endforeach
+                                        </ul>
+                                    </div>
+                                </article>
+                            @endif
                         </div>
+
+                        
                     </form>
                   </article>                
               </div>

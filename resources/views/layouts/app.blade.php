@@ -24,7 +24,7 @@
         <nav class="navbar has-shadow">
             <div class="container">
                 <div class="navbar-brand">
-                    <a href="{{ url('/') }}" class="navbar-item">{{ config('app.name', 'fsdafsd') }}</a>
+                    <a href="{{ url('/') }}" class="navbar-item">{{ config('app.name', 'Forum') }}</a>
 
                     <div class="navbar-burger burger" data-target="navMenu">
                         <span></span>
@@ -35,10 +35,30 @@
 
                 <div class="navbar-menu" id="navMenu">
                     <div class="navbar-start">
-                        <a class="navbar-item" href="/threads">
-                            Бүх асуулт
-                          </a>
-                    </div>
+                        <div class="navbar-item has-dropdown is-hoverable">
+                            <a class="navbar-link">Сонгох</a>
+                            <div class="navbar-dropdown">
+                                <a class="navbar-item" href="/threads">Бүх сэдэв</a>
+                                @if (auth()->check())
+                                    <a class="navbar-item" href="/threads?by={{auth()->user()->name }}">Миний сэдэв</a>
+                                @endif
+                            </div>
+                        </div>
+                        
+                        <a class="navbar-item" href="/threads/create">
+                            Сэдэв үүсгэх
+                        </a>
+                        <div class="navbar-item has-dropdown is-hoverable">
+                              <a class="navbar-link">Сувгууд</a>
+
+                              <div class="navbar-dropdown">
+                                  @foreach ($channels as $channel)
+                                    <a class="navbar-item" href="/threads/{{ $channel->slug}}">{{$channel->name}}</a>
+                                  @endforeach
+                               
+                               </div>
+                        </div>
+                    </div>                   
                     
                     <div class="navbar-end">
                         @if (Auth::guest())
