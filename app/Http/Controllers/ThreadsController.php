@@ -1,9 +1,10 @@
 <?php
 
-namespace Forum\Http\Controllers;
+namespace App\Http\Controllers;
 
-use Forum\Thread;
-use Forum\Channel;
+use App\Filters\ThreadFilters;
+use App\Thread;
+use App\Channel;
 use Illuminate\Http\Request;
 
 class ThreadsController extends Controller
@@ -12,42 +13,30 @@ class ThreadsController extends Controller
     {
         $this->middleware('auth')->except(['index', 'show']); // zuvhun store uildeld auth shaardana
     }
-    public function index(Channel $channel)
+
+    public function index(Channel $channel, ThreadFilters $filters)
     {
-        if($channel->exist){
-            $threads = $channel->threads()->latest()->get();            
-        }else{
-            $threads =Thread::latest();
+    //    $threads = 
+    //    $this->getThreads($channel, $filters);
+
+        $threads =Thread::latest()->filter($filters);
+
+        if($channel->exists){
+            $threads->where('channel_id', $channel->id);
         }
 
-        // if request('by) we should filter by the givenname
-
-        if($username = request('by')){
-            $user = \Forum\User::where('name', $username)->firstOrFail();
-            $threads->where('user_id', $user->id);
-        }
-        
         $threads = $threads->get();
-
+        
         return view('threads.index', compact('threads'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         return view('threads.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+   
     public function store(Request $request)
     {
         // dd(request()->all());
@@ -110,6 +99,18 @@ class ThreadsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+    }
+
+    protected function getThreads(Channel $channel, ThreadFilters $filters){
+
+        $threads =Thread::latest()->filter($filters);
+
+        if($channel->exists){
+            $threads->where('channel_id', $channel->id);
+        }
+
+        return $threads = $threads->get();
+       
     }
 }

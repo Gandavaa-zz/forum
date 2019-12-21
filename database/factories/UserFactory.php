@@ -1,7 +1,7 @@
 <?php
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-use Forum\User;
+use App\User;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 
@@ -26,32 +26,32 @@ $factory->define(User::class, function (Faker $faker) {
     ];
 });
 
-$factory->define(Forum\Thread::class, function(Faker $faker){
+$factory->define(App\Thread::class, function(Faker $faker){
     return [
         'user_id' => function(){
-            return factory('Forum\User')->create()->id;
+            return factory('App\User')->create()->id;
         }, 
         'channel_id' => function(){
-            return factory('Forum\Channel')->create()->id;
+            return factory('App\Channel')->create()->id;
         }, 
         'title' => $faker->sentence, 
         'body' =>$faker->paragraph
     ];
   });
 
-  $factory->define(Forum\Reply::class, function(Faker $faker){
+  $factory->define(App\Reply::class, function(Faker $faker){
       return [
         'thread_id' => function(){
-            return factory('Forum\Thread')->create()->id;
+            return factory('App\Thread')->create()->id;
         }, 
         'user_id' => function(){
-            return factory('Forum\User')->create()->id;
+            return factory('App\User')->create()->id;
         }, 
         'body' =>$faker->paragraph
     ];
   });
 
-  $factory->define(Forum\Channel::class, function(Faker $faker){
+  $factory->define(App\Channel::class, function(Faker $faker){
         $name = $faker->word;
         return [
             'name' => $name, // server
