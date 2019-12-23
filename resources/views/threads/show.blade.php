@@ -8,7 +8,7 @@
                 <div class="column is-8">
                     <div class="box" style="margin-top:30px">
                         <h2 class="title is-5">
-                            <a href="#">{{ $thread->creator->name }}</a> нийтлэв:
+                            <a href=" {{ route('profile', $thread->creator )  }}">{{ $thread->creator->name }}</a> нийтлэв:
                               {{ $thread->title }} </h2>    
                         <hr>
                         <div class="thread-body ">
@@ -22,7 +22,7 @@
                         @include('threads.reply')                     
                     @endforeach
 
-                    {{ $replies->links() }}
+                    {{-- {{ $replies->links() }} --}}
 
                     @if(auth()->check())
         

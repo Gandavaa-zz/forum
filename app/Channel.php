@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Channel extends Model
 {
-    public function getReouteKeyName()
+    public function getRouteKeyName()
     {
         return 'slug';
     }

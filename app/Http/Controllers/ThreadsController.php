@@ -62,8 +62,8 @@ class ThreadsController extends Controller
         // return $thread->replies;
 
         return view('threads.show', [
-            'thread' => $thread,
-            'replies' => $thread->replies()->paginate(20)
+            'thread' => $thread
+            // 'replies' => $thread->replies()->paginate(20)
         ]);
     }
 

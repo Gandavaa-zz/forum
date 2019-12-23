@@ -1,5 +1,5 @@
 <div class="box">
-    <a href="">{{$reply->owner->name}} </a> хэлжээ   {{ $reply->created_at->diffForHumans() }} ...
+    <a href="{{ route('profile', $reply->owner ) }} ">{{$reply->owner->name}} </a> хэлжээ   {{ $reply->created_at->diffForHumans() }} ...
 
     <div class="is-pulled-right">
 
