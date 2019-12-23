@@ -10,8 +10,7 @@ abstract class Filters
      */
     protected $request, $builder;
 
-    protected $filters = ['by'];
-
+    
     public function __construct(Request $request)
     {
         $this->request = $request;

@@ -18,6 +18,15 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <style>
+        body { padding-bottom: 100px; }
+
+        .level{ display: flex; align-items: center; }
+
+        .flex { flex: 1; margin-bottom: 0;}
+
+    </style>
 </head>
 <body>
     <div id="app">
@@ -42,6 +51,8 @@
                                 @if (auth()->check())
                                     <a class="navbar-item" href="/threads?by={{auth()->user()->name }}">Миний сэдэв</a>
                                 @endif
+
+                                <a class="navbar-item" href="/threads?popular=1">Алдартай сэдэв</a>
                             </div>
                         </div>
                         

@@ -14,9 +14,15 @@
                         <div class="thread-body">
                             @foreach ($threads as $thread)
                             <article>
-                                <h3 class="title is-4">
-                                    <a href="{{$thread->path()}}">{{ $thread->title}}</a>
-                                </h4>
+                                <div class="level">
+                                    <h3 class="title is-5 flex">
+                                        <a href="{{$thread->path()}}">{{ $thread->title}}</a>
+                                    </h4>
+    
+                                    <strong> {{ $thread->replies_count }} {{ str_plural('reply', $thread->replies_count) }} </strong>
+
+                                </div>
+
                                 <div class="is-4">{{ $thread->body}}   </div>
                                 
                             </article>
