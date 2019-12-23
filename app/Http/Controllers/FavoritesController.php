@@ -6,7 +6,7 @@ use App\Reply;
 use App\Favorite;
 use Illuminate\Http\Request;
 
-class FavoriteController extends Controller
+class FavoritesController extends Controller
 {
     public function __construct()
     {
@@ -17,7 +17,9 @@ class FavoriteController extends Controller
 
         // using polymorphic relation ashiglaj uusgej baina, busad utguud avtomat-r insert hiine
 
-        return $reply->favorite();
+         $reply->favorite();
+
+         return back();
        
         
     }

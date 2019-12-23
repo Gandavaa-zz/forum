@@ -26,8 +26,6 @@
 
         .flex { flex: 1; margin-bottom: 0;}
 
-        .button{ float:right; }
-
     </style>
 </head>
 <body>
