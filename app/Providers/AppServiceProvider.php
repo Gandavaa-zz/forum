@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use Carbon\CarbonImmutable;
-use Illuminate\Support\Facades\Date;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -15,7 +13,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        Date::use(CarbonImmutable::class);
+        if( $this->app->isLocal()){
+            $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
+        }
+
     }
 
     /**
@@ -26,7 +27,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         \View::composer('*', function($view){
-            $view->with('channels', \App\Channel::all());
+
+            $channels = \Cache::rememberForever('channels', function () {
+                return Channel::all();                
+            });
+            
+            $view->with('channels', $channels);
         });
     }
 }

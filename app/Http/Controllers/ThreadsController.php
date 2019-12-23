@@ -56,8 +56,11 @@ class ThreadsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function show($channelId, Thread $thread)
     {
+        // return $thread->replies;
+
         return view('threads.show', [
             'thread' => $thread,
             'replies' => $thread->replies()->paginate(20)
@@ -67,7 +70,7 @@ class ThreadsController extends Controller
 
     protected function getThreads(Channel $channel, ThreadFilters $filters){
 
-        $threads =Thread::latest()->filter($filters);
+        $threads =Thread::with('channel')->latest()->filter($filters);
 
         if( request()->wantsJson()){
             return $threads;
