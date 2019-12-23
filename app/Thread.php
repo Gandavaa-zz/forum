@@ -9,6 +9,8 @@ class Thread extends Model
 {
     protected $guarded =[];
 
+    protected $with = ['creator', 'channel'];
+
     protected static function boot()
     {
         parent::boot();
@@ -31,9 +33,7 @@ class Thread extends Model
 
     public function creator()
     {
-    
     	return $this->belongsTo(User::class, 'user_id');
-    
     }
 
     public function channel(){

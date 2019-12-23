@@ -70,7 +70,7 @@ class ThreadsController extends Controller
 
     protected function getThreads(Channel $channel, ThreadFilters $filters){
 
-        $threads =Thread::with('channel')->latest()->filter($filters);
+        $threads = Thread::latest()->filter($filters);
 
         if( request()->wantsJson()){
             return $threads;
