@@ -7,6 +7,8 @@ use App\Filters\ThreadFilters;
 
 class Thread extends Model
 {
+    use RecordsActivity;
+
     protected $guarded =[];
 
     protected $with = ['creator', 'channel'];
@@ -22,8 +24,11 @@ class Thread extends Model
         static::deleting(function ($thread){
             $thread->replies()->delete();
         });
+
+        
+        
     }
-    
+
     public function path(){
         return "/threads/{$this->channel->slug}/{$this->id}";
     }
