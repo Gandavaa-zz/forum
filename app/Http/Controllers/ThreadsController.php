@@ -67,6 +67,20 @@ class ThreadsController extends Controller
         ]);
     }
 
+    public function destroy($channelId, Thread $thread)
+    {
+        // authorize thread when user_id is matched logged in user_id
+        $this->authorize('update', $thread);
+ 
+        $thread->delete();
+
+        if(request()->wantsJson()){
+            return response([], 204);
+        }
+
+        return redirect('/threads');
+    }
+
 
     protected function getThreads(Channel $channel, ThreadFilters $filters){
 

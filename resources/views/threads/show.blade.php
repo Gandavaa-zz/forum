@@ -7,9 +7,25 @@
           <div class="columns">                
                 <div class="column is-8">
                     <div class="box" style="margin-top:30px">
-                        <h2 class="title is-5">
-                            <a href=" {{ route('profile', $thread->creator )  }}">{{ $thread->creator->name }}</a> нийтлэв:
-                              {{ $thread->title }} </h2>    
+                        <div class="level">
+                            <div class="level-left">
+                                <h5 class="title is-6">
+                                        <a href=" {{ route('profile', $thread->creator )  }}">{{ $thread->creator->name }}</a> нийтлэв:
+                                          {{ $thread->title }} </h5>    
+                                
+                            </div>
+
+                            @can('update', $thread)
+                            <div class="level-right">
+                                <form action="{{ $thread->path() }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="button">Устга</button>
+                                </form>
+                            </div>
+                            @endcan
+
+                        </div>
                         <hr>
                         <div class="thread-body ">
                             <article>
