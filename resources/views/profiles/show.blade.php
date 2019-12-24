@@ -10,28 +10,14 @@
                     <small> {{ $profileUser->created_at->diffForHumans() }} </small>
                 </h1>
                 <hr>
-                <div class="box" style="margin-top:30px">
-                    @foreach ($threads as $thread)
-                        
-                            <div class="level">
-                                <div class="level-left">
-                                    <a href="{{ route('profile', $thread->creator) }}">{{ $thread->creator->name }} </a> &nbsp; posted: 
-                                    <a href="{{ $thread->path() }}">{{$thread->title}}</a>
-                                </div>
-                                <div class="level-right">
-                                    <span>{{ $thread->created_at->diffForHumans() }} </span>
-                                </div>
-
-                            </div>
-                            <div>
-                                {{ $thread->body }}
-                            </div>
-                        
-                    
+                @foreach ($activities as $date => $activity)
+                    <h2 class="title is-5"> {{ $date }} </h2>
+                    @foreach ($activity as $record)
+                        @include("profiles.activities.{$record->type}", ['activity' => $record ])                        
                     @endforeach
-                </div>
+                @endforeach
 
-                {{ $threads->links() }}
+                {{-- {{ $threads->links() }} --}}
             </div>
             
         </div>
