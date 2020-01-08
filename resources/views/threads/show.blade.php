@@ -11,7 +11,7 @@
                             <div class="level-left">
                                 <h5 class="title is-6">
                                         <a href=" {{ route('profile', $thread->creator )  }}">{{ $thread->creator->name }}</a> нийтлэв:
-                                          {{ $thread->title }} </h5>    
+                                          {{ Str::limit($thread->title, 80) }} </h5>    
                                 
                             </div>
 

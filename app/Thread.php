@@ -22,7 +22,11 @@ class Thread extends Model
 
         //when deleteing thread its should be deleting replies too
         static::deleting(function ($thread){
-            $thread->replies()->delete();
+            // 28 updating here delete each reply also fires recrods activity delete called
+            $thread->replies->each->delete();
+            // $thread->replies()->each(function($reply){
+            //     $reply->delete();
+            // });
         });
 
         

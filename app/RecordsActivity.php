@@ -11,12 +11,16 @@ trait RecordsActivity
     protected static function bootRecordsActivity()
     {
         if (auth()->guest()) return ;
-        
+
         foreach(static::getActivityRecords() as $event) {
             static::$event(function ($model) use ($event){
                 $model->recordActivity($event);
             });
         }
+        // #28 added this because when deleted thread activity not deleted
+        static::deleting(function ($model) {
+            $model->activity()->delete();
+        });
 
     }
 

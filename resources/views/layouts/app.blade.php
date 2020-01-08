@@ -34,6 +34,8 @@
       
         @yield('content')
 
+        <flash></flash>
+
     </div>
 
     <!-- Scripts -->
