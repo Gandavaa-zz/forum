@@ -1,19 +1,50 @@
 <template>
-<article class="message is-warning">
-  <div class="message-header">
-    <p>Warning</p>
-    <button class="delete" aria-label="delete"></button>
-  </div>
-  <div class="message-body">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum <a>felis venenatis</a> efficitur. Aenean ac <em>eleifend lacus</em>, in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.
-  </div>
-</article>
+      <div class="notification is-success message-flash" v-show="show">
+        <button class="delete"></button>
+        Амжилттай! {{ body }}
+    </div>
 </template>
 
 <script>
     export default {
-        mounted() {
-            console.log('Component mounted.')
+        props: ['message'],
+        data() {
+            return {
+              body: this.message, 
+              show: false 
+            }
+        }, 
+        created(){
+            if(this.message){
+               this.flash(this.message);
+            }
+
+            window.events.$on('flash', message=> this.flash(message));
+        }, 
+        methods:{ 
+          flash(message){
+            this.body = message;
+            self.show = true;
+            self.hide();
+          },  
+
+          hide(){
+            //  $('.message-flash').delay(3000).fadeOut();
+             setTimeout(() =>{
+                this.show = false;
+                 console.log('timeout called');
+            }, 4000);
+            // setTimeout(() => { this.show = false }, 2000);
+          }
         }
     }
 </script>
+
+<style>
+  .message-flash{
+    width: 15%;
+    position:fixed;
+    right:25px;
+    bottom:25px;
+  }
+</style>
