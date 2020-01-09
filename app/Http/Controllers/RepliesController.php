@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Reply;
 use App\Thread;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,20 @@ class RepliesController extends Controller
 		
 		]);
 
-		return back();
+		return back()->with('flash', "Таны бичсэн хариу аль хэдийн хадгалагдлаа.");
 
-    }
+	}
+	
+	// 31 Тухайн хүн өөрийнхөөс өөр утгуудыг нэмэх ёсгүй
+	public function destroy(Reply $reply)
+	{
+		// if( $reply->user_id != aut()->id()){
+		// 	return response([], 403);
+		// }
+		$this->authorize('update', $reply);
+		
+		$reply->delete();
+
+		return back();
+	}
 }
