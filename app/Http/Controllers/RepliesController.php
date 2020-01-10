@@ -37,9 +37,15 @@ class RepliesController extends Controller
 		// 	return response([], 403);
 		// }
 		$this->authorize('update', $reply);
-		
+
 		$reply->delete();
 
 		return back();
+	}
+
+	public function update(Reply $reply)
+	{
+		$reply->update(request(['body']));
+
 	}
 }

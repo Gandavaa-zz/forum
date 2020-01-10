@@ -24,8 +24,8 @@
         methods:{ 
           flash(message){
             this.body = message;
-            self.show = true;
-            self.hide();
+            this.show = true;
+            this.hide();
           },  
 
           hide(){

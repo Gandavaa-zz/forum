@@ -6,10 +6,6 @@
 
 require('./bootstrap');
 
-
-
-
-
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -21,7 +17,15 @@ require('./bootstrap');
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
+
+window.events = new Vue();
+
+window.flash = function (message){
+    window.events.$emit('flash', message);
+}
+
 Vue.component('flash', require('./components/Flash.vue').default);
+Vue.component('reply', require('./components/Reply.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

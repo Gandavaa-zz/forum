@@ -18,6 +18,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script src="{{ asset('js/app.js') }}"></script>
+   
 
     <style>
         body { padding-bottom: 100px; }
@@ -25,6 +27,10 @@
         .level{ display: flex; align-items: center; }
 
         .flex { flex: 1; margin-bottom: 0;}
+        .mr-1 { margin-right: 1em;}
+        
+        [v-cloak] { display: none;}
+
 
     </style>
 </head>
@@ -39,6 +45,5 @@
     </div>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
-</body>
+    </body>
 </html>
