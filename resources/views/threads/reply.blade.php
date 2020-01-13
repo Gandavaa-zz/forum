@@ -30,12 +30,8 @@
             <div class="buttons" style="border-top:1px solid #f5f5f5; margin-top:10px; padding-top:15px;">
                 
                 <button class="button is-small is-light" @click="editing = true">Засах</button>
-        
-                <form method="POST" action="/replies/{{ $reply->id }}">
-                    @csrf
-                    @method('DELETE')  
-                    <button type="submit" class="button is-small is-danger">Устга</button>
-                </form>
+                <button class="button is-small is-danger" @click="destroy">Устгах</button>
+             
             </div>
         @endcan        
     </div>                    

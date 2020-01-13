@@ -17,6 +17,16 @@ export default {
             this.editing = false;
 
             flash('Шинэчлэгдлээ');
+        }, 
+
+        destroy(){
+            axios.delete('/replies/'+ this.attributes.id);
+
+            $(this.$el).fadeOut(300, ()=>{
+
+                flash('Таны хариу устгагдлаа!');
+            });
+
         }
     }
     
