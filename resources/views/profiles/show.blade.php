@@ -10,14 +10,19 @@
                     {{-- <small> {{ $profileUser->created_at->diffForHumans() }} </small> --}}
                 </h1>
                 <hr>
-                @foreach ($activities as $date => $activity)
+                @forelse ($activities as $date => $activity)
                     <h2 class="title is-5"> {{ $date }} </h2>
                     @foreach ($activity as $record)
                         @if (view()->exists("profiles.activities.{$record->type}"))
                            @include("profiles.activities.{$record->type}", ['activity' => $record ])                        
                         @endif
                     @endforeach
-                @endforeach
+
+                @empty
+
+                    <p>Хэрэглэгчид ямар нэг идэвхтэй үйлдэл хийгээгүй байна.</p>
+                
+                @endforelse
 
                 {{-- {{ $threads->links() }} --}}
             </div>

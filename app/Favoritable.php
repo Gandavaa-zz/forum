@@ -5,6 +5,14 @@ use Illuminate\Database\Eloquent\Model;
 
 trait Favoritable
 {
+    // #35 is add these 
+    protected static function bootFavoritable(){
+        static::deleting(function($model){
+            $model->favorites->each->delete();
+        });
+
+    }
+
     function favorites(){
         return $this->morphMany(Favorite::class, 'favorited');
     }
@@ -22,8 +30,9 @@ trait Favoritable
     public function unfavorite(){
         
         $attributes = ['user_id' => auth()->id()];
-        
-        $this->favorites()->where($attributes) ->delete();
+        // its not delete with modal delete its sql delete
+        // #35 now fix this now its modal event delete here
+        $this->favorites()->where($attributes)->get()->each->delete();
 
     }
 
