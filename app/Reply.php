@@ -11,6 +11,9 @@ class Reply extends Model
     protected $guarded =[];
 
     protected $with =['owner', 'favorites'];
+
+    // #34 eposide appends return some function return as attribute current object
+    protected $appends = ['favoritesCount', 'IsFavorited'];
     
     function owner(){
         return $this->belongsTo(User::class, 'user_id');

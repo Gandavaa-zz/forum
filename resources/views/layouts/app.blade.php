@@ -10,7 +10,7 @@
     <title>{{ config('app.name', 'dfsafds') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -18,8 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <script src="{{ asset('js/app.js') }}"></script>
-   
+    
 
     <style>
         body { padding-bottom: 100px; }
@@ -45,5 +44,6 @@
     </div>
 
     <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
     </body>
 </html>
