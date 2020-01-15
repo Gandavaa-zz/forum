@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filters;
+namespace Forum\Filters;
 
-use App\User;
+use Forum\User;
 use Illuminate\Http\Request;
 
 class ThreadFilters extends Filters

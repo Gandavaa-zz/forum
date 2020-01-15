@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Providers;
+namespace Forum\Providers;
 
-use App\Channel;
+use Forum\Channel;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

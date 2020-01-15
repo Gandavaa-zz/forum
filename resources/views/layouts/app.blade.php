@@ -23,8 +23,12 @@
         .level{ display: flex; align-items: center; }
 
         .flex { flex: 1; margin-bottom: 0;}
+
         .mr-1 { margin-right: 1em;}
+
         [v-cloak] { display: none;}
+
+        .replies { margin-top: -20px}
     </style>
 
     <script>

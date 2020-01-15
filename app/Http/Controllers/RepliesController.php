@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Forum\Http\Controllers;
 
-use App\Reply;
-use App\Thread;
+use Forum\Reply;
+use Forum\Thread;
 use Illuminate\Http\Request;
 
 class RepliesController extends Controller
@@ -18,13 +18,18 @@ class RepliesController extends Controller
 		
 		$this->validate(request(), ['body' => 'required']);
 
-        $thread->addReply([
+        $reply = $thread->addReply([
 
 			'body' => request('body'), 
 			
 			'user_id' => auth()->id()
 		
 		]);
+	    // #37 add reply from axios
+		if(request()->expectsJson()){
+			// load with owner
+			return $reply->load('owner');
+		}
 
 		return back()->with('flash', "Таны бичсэн хариу аль хэдийн хадгалагдлаа.");
 

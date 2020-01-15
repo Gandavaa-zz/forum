@@ -1,5 +1,5 @@
 <?php
-namespace App\Filters;
+namespace Forum\Filters;
 
 use Illuminate\Http\Request;
 

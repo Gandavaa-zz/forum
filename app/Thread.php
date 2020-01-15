@@ -1,9 +1,9 @@
 <?php
 
-namespace App;
+namespace Forum;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Filters\ThreadFilters;
+use Forum\Filters\ThreadFilters;
 
 class Thread extends Model
 {
@@ -55,9 +55,14 @@ class Thread extends Model
 
     }
 
+    /**
+     * Add reply to the tread
+     * @parem $reply
+     * @return Model
+     */
     public function addReply($reply)
     {
-    	$this->replies()->create($reply);
+    	return $this->replies()->create($reply);
     }
     
     public function scopeFilter($query, ThreadFilters $filters){
