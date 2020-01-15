@@ -1,21 +1,67 @@
+<template>
+        <div :id="'reply-'+id">
+            <a :href="'/profiles/'+data.owner.name"
+                v-text="data.owner.name">
+            </a> хэлжээ {{ data.created_at}} ...
+
+            <div v-if="signedIn" class="is-pulled-right">
+                <favorite :reply="data"></favorite>
+            </div>
+
+            <hr>
+            <div v-if="editing">
+                <div class="field">
+                    <textarea class="textarea" v-model="body" rows="4">{{ data.body }}</textarea>
+                </div>
+            
+                <div class="control">
+                    <button class="button is-small is-info" @click="update">Шинэчлэх</button>
+                    <button class="button is-small" @click="editing=false">Цуцлах</button>
+                </div>
+            </div>
+
+            <div v-else v-text="body"></div>
+        
+            <!-- @can('update', $reply) -->
+
+            <div class="buttons" v-if="canUpdate" style="border-top:1px solid #f5f5f5; margin-top:10px; padding-top:15px;">
+                <button class="button is-small is-light" @click="editing = true">Засах</button>
+                <button class="button is-small is-danger" @click="destroy">Устгах</button>
+            </div>
+            <!-- @endcan         -->
+        </div>                    
+</template>
 <script>
+
 import Favorite from './Favorite.vue';
 
 export default {
-    props: ['attributes'],
+    props: ['data'],
 
     components: { Favorite},
-    
+
     data(){
         return {
             editing:false,
-            body:this.attributes.body
+            id:this.data.id,
+            body:this.data.body
         };        
     }, 
 
+    computed: {
+        signedIn(){
+            return window.App.signedIn;
+        },
+
+        canUpdate(){
+            return this.authorize(user=> this.data.user_id == user.id );
+            // return this.data.user_id == window.App.user.id
+        }
+    },
+
     methods: {
         update(){
-            axios.patch('/replies/'+ this.attributes.id, {
+            axios.patch('/replies/'+ this.data.id, {
                 body: this.body
             });
 
@@ -25,12 +71,9 @@ export default {
         }, 
 
         destroy(){
-            axios.delete('/replies/'+ this.attributes.id);
+            axios.delete('/replies/'+ this.data.id);
 
-            $(this.$el).fadeOut(300, ()=>{
-
-                flash('Таны хариу устгагдлаа!');
-            });
+            this.$emit('deleted', this.data.id);
 
         }
     }

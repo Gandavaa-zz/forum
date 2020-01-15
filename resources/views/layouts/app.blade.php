@@ -6,19 +6,16 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <title>{{ config('app.name', 'dfsafds') }}</title>
 
     <!-- Scripts -->
     {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    
 
     <style>
         body { padding-bottom: 100px; }
@@ -27,11 +24,15 @@
 
         .flex { flex: 1; margin-bottom: 0;}
         .mr-1 { margin-right: 1em;}
-        
         [v-cloak] { display: none;}
-
-
     </style>
+
+    <script>
+        window.App = {!! json_encode([
+            'signedIn' => Auth::check(),
+            'user' => Auth::user()
+        ]) !!};
+    </script>
 </head>
 <body>
     <div id="app">

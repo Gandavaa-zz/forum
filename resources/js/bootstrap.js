@@ -21,6 +21,17 @@ try {
 
 window.Vue = require('vue');
 
+// #36 eposide 
+Vue.prototype.authorize = function(handler) {
+    // Additional admin privilages
+    let user = window.App.user;
+     return user ? handler(user) : false ;
+
+    // if(! user) return false;
+    
+    // return handler(user);
+}
+
 window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
