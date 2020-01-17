@@ -14,6 +14,10 @@ class RepliesController extends Controller
 
 	}
 
+	function index($channelId, Thread $thread){
+		return $thread->replies()->paginate(10);
+	}
+
     function store($channelId, Thread $thread){
 		
 		$this->validate(request(), ['body' => 'required']);

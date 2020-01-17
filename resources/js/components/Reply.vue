@@ -2,7 +2,8 @@
         <div :id="'reply-'+id">
             <a :href="'/profiles/'+data.owner.name"
                 v-text="data.owner.name">
-            </a> хэлжээ {{ data.created_at}} ...
+            </a> 
+            <span v-text="ago"></span> хэлжээ
 
             <div v-if="signedIn" class="is-pulled-right">
                 <favorite :reply="data"></favorite>
@@ -49,6 +50,9 @@ export default {
     }, 
 
     computed: {
+        ago(){
+                return moment(this.data.created_at).fromNow() + '...';
+        },
         signedIn(){
             return window.App.signedIn;
         },
