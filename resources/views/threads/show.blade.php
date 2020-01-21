@@ -14,7 +14,6 @@
                                 <h5 class="title is-6">
                                         <a href=" {{ route('profile', $thread->creator )  }}">{{ $thread->creator->name }}</a> нийтлэв:
                                           {{ Str::limit($thread->title, 80) }} </h5>    
-                                
                             </div>
 
                             @can('update', $thread)
@@ -51,7 +50,12 @@
                             has <span v-text="repliesCount"></span> {{ str_plural('comment', $thread->replies_count) }}.
 
                         </p>                    
+                        <p class="mt-1">
+                            <subscribe-button :active="{{ json_encode($thread->isSubscribedTo) }}"></subscribe-button>
+                        </p>
                     </div>
+
+   
 
                 </div>
 

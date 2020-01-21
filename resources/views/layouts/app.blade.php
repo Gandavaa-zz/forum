@@ -25,6 +25,7 @@
         .flex { flex: 1; margin-bottom: 0;}
 
         .mr-1 { margin-right: 1em;}
+        .mt-1 { margin-top: 0.5em;}
 
         [v-cloak] { display: none;}
 
