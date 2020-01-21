@@ -1,9 +1,9 @@
 <?php
 
-namespace Forum\Http\Controllers;
+namespace App\Http\Controllers;
 
-use Forum\Reply;
-use Forum\Thread;
+use App\Reply;
+use App\Thread;
 use Illuminate\Http\Request;
 
 class RepliesController extends Controller

@@ -1,9 +1,9 @@
 <?php
 
-namespace Forum\Http\Controllers;
+namespace App\Http\Controllers;
 
-use Forum\User;
-use Forum\Activity;
+use App\User;
+use App\Activity;
 use Illuminate\Http\Request;
 
 class ProfilesController extends Controller

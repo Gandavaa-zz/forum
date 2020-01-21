@@ -1,9 +1,9 @@
 <?php
 
-namespace Forum\Http\Controllers;
+namespace App\Http\Controllers;
 
-use Forum\Reply;
-use Forum\Favorite;
+use App\Reply;
+use App\Favorite;
 use Illuminate\Http\Request;
 
 class FavoritesController extends Controller

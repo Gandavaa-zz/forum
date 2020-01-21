@@ -1,9 +1,9 @@
 <?php
 
-namespace Forum;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Forum\Filters\ThreadFilters;
+use App\Filters\ThreadFilters;
 
 class Thread extends Model
 {
@@ -16,9 +16,10 @@ class Thread extends Model
     protected static function boot()
     {
         parent::boot();
-        static::addGlobalScope('replyCount', function ($builder) {
-            $builder->withCount('replies');
-        });
+        // #39 git ride of this chunk no longer need it
+        // static::addGlobalScope('replyCount', function ($builder) {
+        //     $builder->withCount('replies');
+        // });
 
         //when deleteing thread its should be deleting replies too
         static::deleting(function ($thread){
@@ -28,8 +29,6 @@ class Thread extends Model
             //     $reply->delete();
             // });
         });
-
-        
         
     }
 

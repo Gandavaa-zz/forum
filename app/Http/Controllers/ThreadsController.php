@@ -1,10 +1,10 @@
 <?php
 
-namespace Forum\Http\Controllers;
+namespace App\Http\Controllers;
 
-use Forum\Filters\ThreadFilters;
-use Forum\Thread;
-use Forum\Channel;
+use App\Filters\ThreadFilters;
+use App\Thread;
+use App\Channel;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 

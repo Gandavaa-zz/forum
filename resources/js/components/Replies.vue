@@ -58,6 +58,9 @@
             refresh({data}){
                 this.dataSet = data;
                 this.items = data.data;
+
+                // when refresh data 
+                window.scrollTo(0, 0);
             },
 
             // #37 add new reply item push the replies

@@ -2134,7 +2134,9 @@ __webpack_require__.r(__webpack_exports__);
     refresh: function refresh(_ref) {
       var data = _ref.data;
       this.dataSet = data;
-      this.items = data.data;
+      this.items = data.data; // when refresh data 
+
+      window.scrollTo(0, 0);
     } // #37 add new reply item push the replies
     // add remove here moved in mixinigs    
 

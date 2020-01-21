@@ -20,7 +20,8 @@
                             <a class="navbar-item" href="/threads?by={{auth()->user()->name }}">Миний сэдэв</a>
                         @endif
 
-                        <a class="navbar-item" href="/threads?popular=1">Алдартай сэдэв</a>
+                        <a class="navbar-item" href="/threads?popular=1">Алдартай бичвэр</a>
+                        <a class="navbar-item" href="/threads?unanswered=1">Хариултгүй бичвэр</a>
                     </div>
                 </div>
                 

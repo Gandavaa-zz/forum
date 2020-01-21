@@ -35,7 +35,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Forum\\": "app/"
+            "App\\": "app/"
         },
         "classmap": [
             "database/seeds",

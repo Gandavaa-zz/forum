@@ -1,5 +1,5 @@
 <?php 
-namespace Forum;
+namespace App;
 
 /**
  * #25 eposide
@@ -45,7 +45,7 @@ trait RecordsActivity
 
     public function activity(){
         // send to activityp type and id is related to
-        return $this->morphMany('Forum\Activity', 'subject');
+        return $this->morphMany('App\Activity', 'subject');
     }
 
     public function getActivityType($event)

@@ -1,13 +1,14 @@
 <?php
 
-namespace Forum\Filters;
+namespace App\Filters;
 
-use Forum\User;
+use App\User;
 use Illuminate\Http\Request;
 
 class ThreadFilters extends Filters
 {
-    protected $filters = ['by', 'popular'];
+	// #39 unanswered thread nemlee
+    protected $filters = ['by', 'popular', 'unanswered'];
    
     protected function by($username){
         
@@ -24,6 +25,7 @@ class ThreadFilters extends Filters
 		 return $this->builder->orderBy('replies_count', 'desc');
 	}
 
+	// #39 unanswered thread added here
 	protected function unanswered()
 	{
 		 $this->builder->getQuery()->orders = [];

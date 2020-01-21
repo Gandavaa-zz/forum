@@ -1,9 +1,9 @@
 <?php
 
-namespace Forum\Policies;
+namespace App\Policies;
 
-use Forum\User;
-use Forum\Reply;
+use App\User;
+use App\Reply;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ReplyPolicy
