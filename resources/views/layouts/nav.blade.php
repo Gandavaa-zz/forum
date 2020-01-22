@@ -45,9 +45,10 @@
                     <a class="navbar-item " href="{{ route('login') }}">Login</a>
                     <a class="navbar-item " href="{{ route('register') }}">Register</a>
                 @else
+                    <user-notifications></user-notifications>
+                    
                     <div class="navbar-item has-dropdown is-hoverable">
                         <a class="navbar-link" href="#">{{ Auth::user()->name }}</a>
-
                         <div class="navbar-dropdown">
                             <a href="{{ route('profile', Auth::user()) }}" class="navbar-item">My Profile</a>
                             <a class="navbar-item" href="{{ route('logout') }}"

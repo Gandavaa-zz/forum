@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\ThreadSubscription;
 use App\Filters\ThreadFilters;
 use App\Notifications\ThreadWasUpdated;
 use Illuminate\Database\Eloquent\Model;
@@ -70,7 +71,7 @@ class Thread extends Model
         // #43 prepare notifications for all subscribers.
         $this->subscriptions
             ->filter(function ($sub) use ($reply) {
-                return $sub->user_id ! = $reply->user_id; 
+                return $sub->user_id != $reply->user_id; 
             })
             ->each->notify($reply);
             // (function($sub) use ($reply) {

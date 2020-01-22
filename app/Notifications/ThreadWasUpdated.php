@@ -58,7 +58,8 @@ class ThreadWasUpdated extends Notification
     public function toArray($notifiable)
     {
         return [
-            'message' => 'Түрхэн хадгалагдлаа'
+            'message' => $this->reply->owner->name . ' энэ мессежед хариуллаа ' . $this->thread->title,
+            'link' => $this->reply->path()
         ];
     }
 }

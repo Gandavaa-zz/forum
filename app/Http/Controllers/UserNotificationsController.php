@@ -2,6 +2,7 @@
 // #43 created Subscription part -4 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 
 class UserNotificationsController extends Controller
