@@ -34,9 +34,8 @@ class Thread extends Model
             //     $reply->delete();
             // });
         });
-        
     }
-
+   
     public function path(){
         return "/threads/{$this->channel->slug}/{$this->id}";
     }
@@ -68,24 +67,18 @@ class Thread extends Model
     {
         $reply = $this->replies()->create($reply);
         
-        // #43 prepare notifications for all subscribers.
-        $this->subscriptions
-            ->filter(function ($sub) use ($reply) {
-                return $sub->user_id != $reply->user_id; 
-            })
-            ->each->notify($reply);
-            // (function($sub) use ($reply) {
-                // $sub->user->notify(new ThreadWasUpdated($thread, $reply));
-            // });
-
-            // foreach( $this->subscriptions as $subscription){
-            //     // if subscription user_id not reply->user_id bval
-            //     if($subscription->user_id != $reply->user_id)
-            //       $subscription->user->notify(new ThreadWasUpdated($thread, $reply));
-            // }
-
+        #46 is added
+        $this->notifySubscribers($reply);
+        
         return $reply; 
-
+    }
+     // #46 added here
+     public function notifySubscribers($reply)
+    {
+        $this->subscriptions        
+        ->where('user_id', '!=', $reply->user_id)
+        ->each
+        ->notify($reply);
     }
     
     public function scopeFilter($query, ThreadFilters $filters){
