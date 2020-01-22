@@ -111,4 +111,13 @@ class Thread extends Model
                 ->exists();
     }
 
+    #48 created its used for if user view the title is not bold
+    public function hasUpdatesFor($user)
+    {
+         //  compare that carbon instance with the $thread->updated_at
+        $key = $user->visitedThreadCacheKey($this);
+        // $key = sprintf("users.%s.visists.%s", auth()->id(), $this->id);
+        return $this->updated_at > cache($key);
+    }
+
 }

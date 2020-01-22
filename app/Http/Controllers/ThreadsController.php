@@ -60,8 +60,10 @@ class ThreadsController extends Controller
 
     public function show($channelId, Thread $thread)
     {
-        // return $thread->replies;
-
+        // auth()->user()->read($thread);
+        // $key = sprintf("users.%s.visists.%s", auth()->id(), $thread->id);
+        // cache()->forever($key, Carbon::now());
+        
         return view('threads.show', compact('thread'));
         // 38 removed
         // [ 

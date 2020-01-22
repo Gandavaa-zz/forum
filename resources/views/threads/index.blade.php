@@ -13,10 +13,19 @@
                         <hr>
                         <div class="thread-body">
                             @foreach ($threads as $thread)
+
                             <article>
                                 <div class="level">
-                                    <h3 class="title is-5 flex">
-                                        <a href="{{$thread->path()}}">{{ $thread->title}}</a>
+                                    <h3 class="title is-5 flex has-text-weight-normal">
+                                        <a href="{{$thread->path()}}">
+                                            @if ($thread->hasUpdatesFor(auth()->user()))
+                                            <strong class="has-text-weight-bold">  
+                                                {{ $thread->title }}
+                                            </strong>
+                                            @else
+                                                {{ $thread->title}}
+                                            @endif
+                                            </a>
                                     </h4>
     
                                     <strong class="replies"> {{ $thread->replies_count }} {{ str_plural('сэтгэгдэл', $thread->replies_count) }} </strong>
