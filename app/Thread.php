@@ -65,6 +65,7 @@ class Thread extends Model
      */
     public function addReply($reply)
     {
+
         $reply = $this->replies()->create($reply);
         
         #46 is added

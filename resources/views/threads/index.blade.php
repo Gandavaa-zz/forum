@@ -18,7 +18,7 @@
                                 <div class="level">
                                     <h3 class="title is-5 flex has-text-weight-normal">
                                         <a href="{{$thread->path()}}">
-                                            @if ($thread->hasUpdatesFor(auth()->user()))
+                                            @if (auth()->check() && $thread->hasUpdatesFor(auth()->user()))
                                             <strong class="has-text-weight-bold">  
                                                 {{ $thread->title }}
                                             </strong>

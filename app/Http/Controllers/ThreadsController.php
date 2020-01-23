@@ -30,7 +30,7 @@ class ThreadsController extends Controller
     }
 
    
-    public function store(Request $request)
+    public function store(Request $request, Spam $spam)
     {
         // dd(request()->all());
         $this->validate($request, [
@@ -38,6 +38,8 @@ class ThreadsController extends Controller
             'body' => 'required',
             'channel_id' => 'required|exists:channels,id'
         ]);
+
+        $spam->detect(request('body'));
 
         $thread = Thread::create([
             'user_id' => auth()->id(), 

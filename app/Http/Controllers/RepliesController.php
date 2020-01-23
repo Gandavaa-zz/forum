@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Reply;
 use App\Thread;
+use App\Inspections\Spam;
 use Illuminate\Http\Request;
 
 class RepliesController extends Controller
@@ -18,10 +19,19 @@ class RepliesController extends Controller
 		return $thread->replies()->paginate(10);
 	}
 
+	/** 
+	 * Persist a new Reply
+	 * 
+	 * @param integer 						$channelId
+	 * @param Thread 						$thread
+	 * @param Spam 							$spam
+	 * @return \Illuminate\Http\RedirectResponse
+	 * 
+	 */
     function store($channelId, Thread $thread){
 		
-		$this->validate(request(), ['body' => 'required']);
-
+		$this->validateReply();
+		
         $reply = $thread->addReply([
 
 			'body' => request('body'), 
@@ -57,8 +67,23 @@ class RepliesController extends Controller
 	}
 
 	public function update(Reply $reply)
-	{
+	{	
+		$this->authorize('update', $reply);
+
+		$this->validateReply();
+
 		$reply->update(request(['body']));
+
+	}
+
+	// #51 added spam validation 
+	// resolve function dont need inject function that class resolve it
+
+	protected function validateReply(){
+		
+		$this->validate(request(), ['body' => 'required']);
+
+		resolve(Spam::class)->detect(request('body'));
 
 	}
 }
