@@ -1,6 +1,8 @@
 <template>
-      <div class="notification is-success message-flash" v-show="show">
-        <button class="delete"></button>
+      <div class="notification message-flash" 
+        :class="'is-'+level" 
+        v-show="show" 
+        v-text="body">
         Амжилттай! {{ body }}
     </div>
 </template>
@@ -11,6 +13,7 @@
         data() {
             return {
               body: this.message, 
+              level: 'success',
               show: false 
             }
         }, 
@@ -19,11 +22,12 @@
                this.flash(this.message);
             }
 
-            window.events.$on('flash', message=> this.flash(message));
+            window.events.$on('flash', data=> this.flash(data));
         }, 
         methods:{ 
-          flash(message){
-            this.body = message;
+          flash(data){
+            this.body = data.message;
+            this.level = data.level;
             this.show = true;
             this.hide();
           },  

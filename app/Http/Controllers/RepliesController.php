@@ -29,23 +29,25 @@ class RepliesController extends Controller
 	 * 
 	 */
     function store($channelId, Thread $thread){
-		
-		$this->validateReply();
-		
-        $reply = $thread->addReply([
 
-			'body' => request('body'), 
+		try {
+			$this->validateReply();
 			
-			'user_id' => auth()->id()
-		
-		]);
-	    // #37 add reply from axios
-		if(request()->expectsJson()){
-			// load with owner
-			return $reply->load('owner');
+			$reply = $thread->addReply([
+	
+				'body' => request('body'), 
+				
+				'user_id' => auth()->id()
+			
+		]);			
+		} catch (\Exception $e) {
+			return response('Уучлаарай, Таны оруулсан комментыг яг одоо нийтлэх боломжгүй байна.', 422);
 		}
+		
+	    
+	    return $reply->load('owner');
 
-		return back()->with('flash', "Таны бичсэн хариу аль хэдийн хадгалагдлаа.");
+		
 
 	}
 	
@@ -70,9 +72,16 @@ class RepliesController extends Controller
 	{	
 		$this->authorize('update', $reply);
 
-		$this->validateReply();
+		try {
+			
+			$this->validateReply();
 
-		$reply->update(request(['body']));
+			$reply->update(request(['body']));
+
+		} catch (\Exception $e) {
+
+			return response('Уучлаарай, Таны оруулсан комментыг яг одоо хадгалах боломжгүй байна.', 422);
+		}
 
 	}
 

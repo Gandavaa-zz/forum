@@ -1898,11 +1898,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['message'],
   data: function data() {
     return {
       body: this.message,
+      level: 'success',
       show: false
     };
   },
@@ -1913,13 +1916,14 @@ __webpack_require__.r(__webpack_exports__);
       this.flash(this.message);
     }
 
-    window.events.$on('flash', function (message) {
-      return _this.flash(message);
+    window.events.$on('flash', function (data) {
+      return _this.flash(data);
     });
   },
   methods: {
-    flash: function flash(message) {
-      this.body = message;
+    flash: function flash(data) {
+      this.body = data.message;
+      this.level = data.level;
       this.show = true;
       this.hide();
     },
@@ -1991,6 +1995,8 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.post(location.pathname + '/replies', {
         body: this.body
+      })["catch"](function (error) {
+        flash(error.response.data, 'danger');
       }).then(function (_ref) {
         var data = _ref.data;
         _this.body = '';
@@ -2221,6 +2227,8 @@ __webpack_require__.r(__webpack_exports__);
     update: function update() {
       axios.patch('/replies/' + this.data.id, {
         body: this.body
+      })["catch"](function (error) {
+        flash(error.response.data, 'danger');
       });
       this.editing = false;
       flash('Шинэчлэгдлээ');
@@ -51506,12 +51514,11 @@ var render = function() {
       directives: [
         { name: "show", rawName: "v-show", value: _vm.show, expression: "show" }
       ],
-      staticClass: "notification is-success message-flash"
+      staticClass: "notification message-flash",
+      class: "is-" + _vm.level,
+      domProps: { textContent: _vm._s(_vm.body) }
     },
-    [
-      _c("button", { staticClass: "delete" }),
-      _vm._v("\n    Амжилттай! " + _vm._s(_vm.body) + "\n")
-    ]
+    [_vm._v("\n    Амжилттай! " + _vm._s(_vm.body) + "\n")]
   )
 }
 var staticRenderFns = []
@@ -64146,7 +64153,11 @@ window.moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.
 window.events = new Vue();
 
 window.flash = function (message) {
-  window.events.$emit('flash', message);
+  var level = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
+  window.events.$emit('flash', {
+    message: message,
+    level: level
+  });
 };
 
 Vue.component('flash', __webpack_require__(/*! ./components/Flash.vue */ "./resources/js/components/Flash.vue")["default"]);
