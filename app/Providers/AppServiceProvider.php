@@ -35,5 +35,8 @@ class AppServiceProvider extends ServiceProvider
             
             $view->with('channels', $channels);
         });
+
+        //#53 spam free validator added
+        \Validator::extend('spamfree', 'App\Rules\SpamFree@passes');
     }
 }
