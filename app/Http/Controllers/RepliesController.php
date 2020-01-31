@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Reply;
 use App\Thread;
+use Illuminate\Support\Facades\Gate;
+
 
 class RepliesController extends Controller
 {
@@ -29,6 +31,11 @@ class RepliesController extends Controller
     function store($channelId, Thread $thread){
 
 		try {
+			if(Gate::denies('create', new Reply)){
+			   return response(
+				   'Та дахин дахин нийтлэл оруулж байна, Түр хүлээнэ үү! :)', 422);
+			} 
+
 			request()->validate(['body' => 'required|spamfree']);
 			
 			$reply = $thread->addReply([
