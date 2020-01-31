@@ -4,6 +4,7 @@ namespace App;
 
 use App\ThreadSubscription;
 use App\Filters\ThreadFilters;
+use App\Events\ThreadReceivedNewReply;
 use App\Notifications\ThreadWasUpdated;
 use Illuminate\Database\Eloquent\Model;
 
@@ -67,20 +68,23 @@ class Thread extends Model
     {
 
         $reply = $this->replies()->create($reply);
-        
+
+        #57 notification 
+        event(new ThreadReceivedNewReply($reply));
+                  
         #46 is added
-        $this->notifySubscribers($reply);
+        // $this->notifySubscribers($reply);
         
         return $reply; 
     }
-     // #46 added here
-     public function notifySubscribers($reply)
-    {
-        $this->subscriptions        
-        ->where('user_id', '!=', $reply->user_id)
-        ->each
-        ->notify($reply);
-    }
+    //  // #46 added here
+    //  public function notifySubscribers($reply)
+    // {
+    //     $this->subscriptions        
+    //     ->where('user_id', '!=', $reply->user_id)
+    //     ->each
+    //     ->notify($reply);
+    // }
     
     public function scopeFilter($query, ThreadFilters $filters){
         return $filters->apply($query);
