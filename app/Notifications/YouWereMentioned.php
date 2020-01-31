@@ -11,14 +11,16 @@ class YouWereMentioned extends Notification
 {
     use Queueable;
 
+    protected $reply;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($reply)
     {
-        //
+        $this->reply = $reply;
     }
 
     /**
@@ -29,7 +31,7 @@ class YouWereMentioned extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database'];
     }
 
     /**
@@ -38,13 +40,13 @@ class YouWereMentioned extends Notification
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
-    {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
-    }
+    // public function toMail($notifiable)
+    // {
+    //     return (new MailMessage)
+    //                 ->line('The introduction to the notification.')
+    //                 ->action('Notification Action', url('/'))
+    //                 ->line('Thank you for using our application!');
+    // }
 
     /**
      * Get the array representation of the notification.
@@ -55,7 +57,8 @@ class YouWereMentioned extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'message' => $this->reply->owner->name . ' mentioned you in ' . $this->reply->thread->title,
+            'link' => $this->reply->path()
         ];
     }
 }

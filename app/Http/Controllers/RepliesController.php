@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Reply;
 use App\Thread;
+use App\Notifications\YouWereMentioned;
 use App\Http\Requests\CreatePostRequest;
-use Illuminate\Support\Facades\Gate;
 
 
 class RepliesController extends Controller
@@ -39,10 +40,26 @@ class RepliesController extends Controller
 		// } 
 		// request()->validate(['body' => 'required|spamfree']);
 		
-		return $thread->addReply([	
+		$reply =  $thread->addReply([	
 			'body' => request('body'), 				
 			'user_id' => auth()->id()			
-		])->load('owner');
+		]);
+
+		// Inspect the body of the reply username mentins
+
+		preg_match_all('/\@([^\s\.]+)/', $reply->body, $matches);
+
+		// And then foreach mentionsd user, notify them.
+		foreach ($matches[1] as $name) {
+			
+			$user = User::whereName($name)->first();
+			
+			if ($user){
+				$user->notify(new YouWereMentioned($reply));
+			}
+		}
+
+		return $reply->load('owner');
 
 	}
 	
