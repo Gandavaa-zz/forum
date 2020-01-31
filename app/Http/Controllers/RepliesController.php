@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Reply;
 use App\Thread;
+use App\Http\Requests\CreatePostRequest;
 use Illuminate\Support\Facades\Gate;
 
 
@@ -28,31 +29,20 @@ class RepliesController extends Controller
 	 * @return \Illuminate\Http\RedirectResponse
 	 * 
 	 */
-    function store($channelId, Thread $thread){
+    function store($channelId, Thread $thread, CreatePostRequest $form){
 
-		try {
-			if(Gate::denies('create', new Reply)){
-			   return response(
-				   'Та дахин дахин нийтлэл оруулж байна, Түр хүлээнэ үү! :)', 422);
-			} 
-
-			request()->validate(['body' => 'required|spamfree']);
-			
-			$reply = $thread->addReply([
-	
-				'body' => request('body'), 
-				
-				'user_id' => auth()->id()
-			
-		]);			
-		} catch (\Exception $e) {
-			return response('Уучлаарай, Таны оруулсан комментыг яг одоо нийтлэх боломжгүй байна.', 422);
-		}
+		// #54 remove all codes to $form CreatePostForm
 		
-	    
-	    return $reply->load('owner');
-
+		// if(Gate::denies('create', new Reply)){
+		// 	return response(
+		// 		'Та дахин дахин нийтлэл оруулж байна, Түр хүлээнэ үү! :)', 429);
+		// } 
+		// request()->validate(['body' => 'required|spamfree']);
 		
+		return $thread->addReply([	
+			'body' => request('body'), 				
+			'user_id' => auth()->id()			
+		])->load('owner');
 
 	}
 	
