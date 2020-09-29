@@ -10,14 +10,22 @@ use Carbon\Carbon;
 
 class ThreadsController extends Controller
 {
+    /**
+     * Create a new ThreadsController instance
+     */
     public function __construct()
     {
         $this->middleware('auth')->except(['index', 'show']); // zuvhun store uildeld auth shaardana
     }
 
+    /**
+     * Display a listing of the resource
+     * 
+     * @!
+     */
+
     public function index(Channel $channel, ThreadFilters $filters)
     {
-    //    $threads = 
         $threads = $this->getThreads($channel, $filters);       
         
         return view('threads.index', compact('threads'));
@@ -63,6 +71,10 @@ class ThreadsController extends Controller
         // auth()->user()->read($thread);
         // $key = sprintf("users.%s.visists.%s", auth()->id(), $thread->id);
         // cache()->forever($key, Carbon::now());
+
+        if (auth()->check()){
+            auth()->user()->read($thread);
+        }
         
         return view('threads.show', compact('thread'));
         // 38 removed

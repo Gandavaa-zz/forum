@@ -10,15 +10,19 @@
             </div>
 
             <hr>
+
             <div v-if="editing">
-                <div class="field">
-                    <textarea class="textarea" v-model="body" rows="4">{{ data.body }}</textarea>
-                </div>
-            
-                <div class="control">
-                    <button class="button is-small is-info" @click="update">Шинэчлэх</button>
-                    <button class="button is-small" @click="editing=false">Цуцлах</button>
-                </div>
+                <form @submit="update">
+
+                    <div class="field">
+                        <textarea class="textarea" v-model="body" rows="4" required>{{ data.body }}</textarea>
+                    </div>
+                
+                    <div class="control">
+                        <button class="button is-small is-info">Шинэчлэх</button>
+                        <button class="button is-small" @click="editing=false" type="button">Цуцлах</button>
+                    </div>
+                </form>
             </div>
 
             <div v-else v-text="body"></div>

@@ -47,6 +47,16 @@ class RepliesController extends Controller
 
 	}
 	
+	public function update(Reply $reply)
+	{	
+		$this->authorize('update', $reply);
+
+		$this->validate(request(), ['body' => 'required|spamfree']);
+
+		$reply->update(request(['body']));
+
+	}
+
 	// 31 Тухайн хүн өөрийнхөөс өөр утгуудыг нэмэх ёсгүй
 	public function destroy(Reply $reply)
 	{
@@ -64,21 +74,6 @@ class RepliesController extends Controller
 		return back();
 	}
 
-	public function update(Reply $reply)
-	{	
-		$this->authorize('update', $reply);
 
-		try {
-			
-			$this->validate(request(), ['body' => 'required|spamfree']);
-
-			$reply->update(request(['body']));
-
-		} catch (\Exception $e) {
-
-			return response('Уучлаарай, Таны оруулсан комментыг яг одоо хадгалах боломжгүй байна.', 422);
-		}
-
-	}
 
 }

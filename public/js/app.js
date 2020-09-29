@@ -2195,6 +2195,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['data'],
@@ -51785,56 +51789,54 @@ var render = function() {
     _vm._v(" "),
     _vm.editing
       ? _c("div", [
-          _c("div", { staticClass: "field" }, [
-            _c(
-              "textarea",
-              {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.body,
-                    expression: "body"
-                  }
-                ],
-                staticClass: "textarea",
-                attrs: { rows: "4" },
-                domProps: { value: _vm.body },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+          _c("form", { on: { submit: _vm.update } }, [
+            _c("div", { staticClass: "field" }, [
+              _c(
+                "textarea",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.body,
+                      expression: "body"
                     }
-                    _vm.body = $event.target.value
+                  ],
+                  staticClass: "textarea",
+                  attrs: { rows: "4", required: "" },
+                  domProps: { value: _vm.body },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.body = $event.target.value
+                    }
                   }
-                }
-              },
-              [_vm._v(_vm._s(_vm.data.body))]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "control" }, [
-            _c(
-              "button",
-              {
-                staticClass: "button is-small is-info",
-                on: { click: _vm.update }
-              },
-              [_vm._v("Шинэчлэх")]
-            ),
+                },
+                [_vm._v(_vm._s(_vm.data.body))]
+              )
+            ]),
             _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "button is-small",
-                on: {
-                  click: function($event) {
-                    _vm.editing = false
+            _c("div", { staticClass: "control" }, [
+              _c("button", { staticClass: "button is-small is-info" }, [
+                _vm._v("Шинэчлэх")
+              ]),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "button is-small",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      _vm.editing = false
+                    }
                   }
-                }
-              },
-              [_vm._v("Цуцлах")]
-            )
+                },
+                [_vm._v("Цуцлах")]
+              )
+            ])
           ])
         ])
       : _c("div", { domProps: { textContent: _vm._s(_vm.body) } }),
@@ -64896,8 +64898,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\iDoc\xampp\htdocs\forum\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\iDoc\xampp\htdocs\forum\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\iDoc\xampp\htdocs\forum\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\iDoc\xampp\htdocs\forum\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
